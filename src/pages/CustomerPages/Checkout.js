@@ -172,6 +172,7 @@ const Checkout = () => {
           // shippingInfo: shippingInfo,
           // isPaid: true,
           // cartItemIdList: cartState?.map((item) => item.cartItemId) || [],
+          totalCost: order?.totalCost ,
           paymentMethod: payment,
           deliveryAddress: formik.values?.address,
           note: "giao nhanh cho tao"
