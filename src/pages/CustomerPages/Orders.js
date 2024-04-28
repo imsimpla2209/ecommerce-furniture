@@ -78,7 +78,7 @@ const Orders = () => {
                             class=" text-uppercase btn btn-success btn-xs w-10"
                           >
                             <span class="flex-center">
-                              {item?.isPaid ? "Complete" : "Refund"}
+                              {item?.orderStatus ? "Pending" : "Refund"}
                             </span>
                           </button>
                         </td>
