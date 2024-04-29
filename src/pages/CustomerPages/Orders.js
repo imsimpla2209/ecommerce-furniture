@@ -35,31 +35,33 @@ const Orders = () => {
     <>
       <BreadCrumb title="Đơn hàng của tôi" />
       <Container class="cart-wrapper home-wrapper-2 py-5">
-        <div className="row">
+        <div className="row mt-4">
           {Array.isArray(orderState) &&
             orderState?.map((item, index) => {
               const shipInfo = shippingInfo[index];
               const currentOrderNumber = orderNumber + index;
               return (
-                <div class="mt-4 mb-4" key={index}>
+                <div class="" key={index}>
                   <table class="m-0 table table-sm table-bordered">
-                    <thead>
-                      <tr class="text-center">
-                        <th class="w-10 bg-info  align-middle">Order</th>
-                        <th class="w-15  bg-info align-middle">Date</th>
-                        <th class=" bg-info r align-middle">Address </th>
-                        <th class="w-20 bg-info align-middle">
-                          Order Value{" "}
-                        </th>
-                        <th class="w-20  bg-info  align-middle">
-                          Payment Status
-                        </th>
-                      </tr>
-                    </thead>
+                    {
+                      index === 0 && <thead>
+                        <tr class="text-center">
+                          <th class="w-10 bg-secondary  align-middle">Order</th>
+                          <th class="w-15  bg-secondary align-middle">Date</th>
+                          <th class=" bg-secondary r align-middle">Address </th>
+                          <th class="w-20 bg-secondary align-middle">
+                            Order Value{" "}
+                          </th>
+                          <th class="w-20  bg-secondary  align-middle">
+                            Payment Status
+                          </th>
+                        </tr>
+                      </thead>
+                    }
                     <tbody class=" position-relative">
                       <tr class="text-center">
                         <td class="align-middle text-info cursor p-2">
-                          <Link to={`/order/${item?._id}`}>
+                          <Link to={`/order/${item?.orderId}`}>
                             <span class="text-nowrap">
                               #{currentOrderNumber}
                             </span>
@@ -78,7 +80,7 @@ const Orders = () => {
                             class=" text-uppercase btn btn-success btn-xs w-10"
                           >
                             <span class="flex-center">
-                              {item?.isPaid ? "Complete" : "Refund"}
+                              {item?.orderStatus}
                             </span>
                           </button>
                         </td>

@@ -183,7 +183,7 @@ const Header = ({ history }) => {
             <div className="col-md-1 col-5">
               <h2>
                 <Link className="mw-100 d-flex align-items-center gap-2" to="/">
-                  <img src="images/logo.png" alt="logo" style={{ width: '70px', height: '70px' }} />
+                  <img src="images/logooo.png" alt="logo" style={{ width: '70px', height: '70px' }} />
                   {/* <p className=" mb-0 gradient-yellow-text" style={{ fontWeight: '500' }}>Kính Nhà Làm</p> */}
 
                 </Link>

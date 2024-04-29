@@ -113,7 +113,7 @@ const Order = () => {
     });
   }
   return (
-    <div>
+    <div >
       <h3 className="mb-4 title">Orders List</h3>
       <Table columns={columns} dataSource={data1} />
     </div>
