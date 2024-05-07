@@ -28,15 +28,9 @@ const PAY_ON_DELIVERY = "Pay on delivery"
 const PAYPAL = "PayPal"
 const Checkout = () => {
   const shippingSchema = object({
-    firstName: string().required("First name is required"),
-    lastName: string().required("Last name should be required"),
     address: string().required("Address is required"),
-    note: string().nullable(),
-    phoneNumber: string()
-      .required("Mobile phone is required")
-      .matches(phoneRegExp, "Phone number is not valid")
-      .min(10, "too short")
-      .max(10, "too long"),
+    note: string().required("note is required"),
+
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -101,10 +95,6 @@ const Checkout = () => {
   const handleReset = () => {
     formik.setValues({
       ...formik.values,
-      firstName: "",
-      lastName: "",
-      phoneNumber: "",
-      country: "",
       note: "",
       address: "",
     });
@@ -139,12 +129,9 @@ const Checkout = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      firstName: userState?.firstName || "",
-      lastName: userState?.lastName || "",
-      phoneNumber: userState?.phoneNumber || "",
       address: userState?.address || "",
-      country: userState?.country || "",
-      note: "",
+      note: userState?.note || "",
+
     },
     validationSchema: shippingSchema,
     onSubmit: (values) => {
@@ -155,8 +142,6 @@ const Checkout = () => {
 
   const handleDone = () => {
     navigate("/my-orders");
-    dispatch(emptyUserCart());
-    dispatch(resetState());
   }
 
   const onSuccess = (details, data) => {
@@ -170,6 +155,8 @@ const Checkout = () => {
           // shippingInfo: shippingInfo,
           // isPaid: true,
           // cartItemIdList: cartState?.map((item) => item.cartItemId) || [],
+          note: formik.values?.address,
+          totalCost: order?.totalCost ,
           paymentMethod: payment,
           deliveryAddress: formik.values?.address,
           note: formik.values?.note
@@ -229,7 +216,7 @@ const Checkout = () => {
                 <h4 className="title total">Contact Information</h4>
                 <p className="user-details">Đức Anh (ducanh2002@gmail.com)</p>
 
-                <div className="w-100">
+                {/* <div className="w-100">
                   <div className="d-flex justify-content-between align-content-center">
                     <h4 className="mb-3">Shipping Address</h4>
                     <Button
@@ -239,45 +226,13 @@ const Checkout = () => {
                       Reset shipping address
                     </Button>
                   </div>
-                </div>
+                </div> */}
 
                 <form
                   onSubmit={formik.handleSubmit}
                   action=""
                   className="d-flex gap-15 flex-wrap justify-content-between"
                 >
-
-                  <div className="flex-grow-1">
-                    <input
-                      type="text"
-                      placeholder="First Name"
-                      className="form-control"
-                      name="firstName"
-                      value={formik.values.firstName}
-                      onChange={formik.handleChange("firstName")}
-                      onBlur={formik.handleBlur("firstName")}
-                      disabled={isFormDisabled}
-                    />
-                    <div className="errors ">
-                      {formik.touched.firstName && formik.errors.firstName}
-                    </div>
-                  </div>
-                  <div className="flex-grow-1">
-                    <input
-                      type="text"
-                      placeholder="Last Name"
-                      className="form-control"
-                      name="lastName"
-                      value={formik.values.lastName}
-                      onChange={formik.handleChange("lastName")}
-                      onBlur={formik.handleBlur("lastName")}
-                      disabled={isFormDisabled}
-                    />
-                    <div className="errors">
-                      {formik.touched.lastName && formik.errors.lastName}
-                    </div>
-                  </div>
-
                   <div className="w-100">
                     <input
                       type="text"
@@ -308,21 +263,7 @@ const Checkout = () => {
                       {formik.touched.note && formik.errors.note}
                     </div>
                   </div>
-                  <div className="w-100">
-                    <input
-                      type="text"
-                      placeholder="Mobile Phone"
-                      className="form-control"
-                      name="phoneNumber"
-                      value={formik.values.phoneNumber}
-                      onChange={formik.handleChange("phoneNumber")}
-                      onBlur={formik.handleBlur("phoneNumber")}
-                      disabled={isFormDisabled}
-                    />
-                    <div className="errors ">
-                      {formik.touched.phoneNumber && formik.errors.phoneNumber}
-                    </div>
-                  </div>
+
                   <div className="w-100">
                     <div className="d-flex justify-content-between align-content-center">
                       <Link to="/cart" className="text-dark">

@@ -69,7 +69,7 @@ const Profile = () => {
     onSubmit: (values) => {
       dispatch(updateUserProf(values));
       setEdit(true);
-      // toast.info("Update Password Successfully");
+      toast.info("Update Password Successfully");
     },
   });
   return (
