@@ -30,6 +30,7 @@ const Checkout = () => {
   const shippingSchema = object({
     address: string().required("Address is required"),
     note: string().required("note is required"),
+
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -40,7 +41,7 @@ const Checkout = () => {
   const [shippingInfo, setShippingInfo] = useState(null);
   const [cartProduct, setCartProduct] = useState(null);
   const location = useLocation();
-  const userState = useSelector((state) => state?.auth?.info?.getaUser);
+  const userState = useSelector((state) => state?.auth?.myProfile);
   const getUsertId = location.pathname.split("/")[2];
   const totalAmountWithShipping = totalAmount !== null ? totalAmount + 5 : 5;
   const [isFormDisabled, setIsFormDisabled] = useState(false);
@@ -130,6 +131,7 @@ const Checkout = () => {
     initialValues: {
       address: userState?.address || "",
       note: userState?.note || "",
+
     },
     validationSchema: shippingSchema,
     onSubmit: (values) => {
@@ -157,8 +159,8 @@ const Checkout = () => {
           totalCost: order?.totalCost ,
           paymentMethod: payment,
           deliveryAddress: formik.values?.address,
-          
-        }, setTimeout(navigate("/my-orders"), 500))
+          note: formik.values?.note
+        }, handleDone)
       );
     } catch (error) {
       console.error("Error during PayPal success:", error);
@@ -179,11 +181,13 @@ const Checkout = () => {
 
   return (
     <>
-      <div className="checkout-wrapper py-5 home-wrapper-2">
+      <div className="checkout-wrapper py-5 home-wrapper-2 bg-white">
         <div className="container-xxl">
           <div className="row">
             <div className="col-7">
-              <div className="checkout-left-data">
+              <div className="checkout-left-data border-2 border p-3 rounded " style={{
+                backgroundColor: "aliceblue",
+              }}>
                 <h3 className="website-name">Đức Anh Store(Kính Nhà Làm)</h3>
                 <nav
                   style={{ "--bs-breadcrumb-divider": ">" }}
@@ -215,13 +219,12 @@ const Checkout = () => {
                 {/* <div className="w-100">
                   <div className="d-flex justify-content-between align-content-center">
                     <h4 className="mb-3">Shipping Address</h4>
-                    <button
-                      className="button"
-                      type="button"
+                    <Button
+                      type="default"
                       onClick={handleReset}
                     >
                       Reset shipping address
-                    </button>
+                    </Button>
                   </div>
                 </div> */}
 
@@ -230,7 +233,6 @@ const Checkout = () => {
                   action=""
                   className="d-flex gap-15 flex-wrap justify-content-between"
                 >
-
                   <div className="w-100">
                     <input
                       type="text"
@@ -249,7 +251,7 @@ const Checkout = () => {
                   <div className="w-100">
                     <input
                       type="text"
-                      placeholder="note"
+                      placeholder="Note"
                       className="form-control"
                       name="note"
                       value={formik.values.note}
@@ -279,7 +281,9 @@ const Checkout = () => {
               </div>
             </div>
             <div className="col-5">
-              <div className="border-bottom py-4">
+              <div className="border-bottom py-4 border-4 " style={{
+                background: "linear-gradient(90deg, #ffff 0%, #f4f4 35%, rgba(0,212,255,1) 100%)"
+              }}>
                 {cartState &&
                   cartState?.map((items, index) => {
                     return (
@@ -291,7 +295,7 @@ const Checkout = () => {
                           <div className="w-25 position-relative ">
                             <span
                               style={{ top: "-10px", right: "2px" }}
-                              className="bagde bg-secondary text-white rounded-circle p-2 position-absolute"
+                              className="badge bg-secondary text-white rounded-circle p-2 position-absolute"
                             >
                               {items?.quantity}
                             </span>
@@ -314,19 +318,6 @@ const Checkout = () => {
                       </div>
                     );
                   })}
-              </div>
-              <div className="border-bottom py-4">
-                <div className="d-flex justify-content-between align-items-center">
-                  <p className="mb-0 total">SubTotal</p>
-                  <p className="mb-0 total-price">
-                  {" "}
-                  {formatCurrencyVND((order?.totalCost || 0).toFixed(2))}
-                  </p>
-                </div>
-                {/* <div className="d-flex justify-content-between align-items-center">
-                  <p className="mb-0 total">Shipping</p>
-                  <p className="mb-0 total-price">50.000đ</p>
-                </div> */}
               </div>
               <div className="d-flex justify-content-between align-items-center py-4">
                 <h4 className="total">Total</h4>

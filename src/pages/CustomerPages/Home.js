@@ -122,7 +122,7 @@ const Home = () => {
                 <div className="carousel-inner">
                   <div className="carousel-item active">
                     <img
-                      src="images\hapbanner.jpg"
+                      src="images\carousell.jpg"
                       className="carousel-img"
                       alt="main banner"
                       style={{
@@ -140,7 +140,7 @@ const Home = () => {
                   </div>
                   <div className="carousel-item">
                     <img
-                      src="images\hapbanner.jpg"
+                      src="images\carousell.jpg"
                       className="carousel-img"
                       alt="main banner"
                     />
