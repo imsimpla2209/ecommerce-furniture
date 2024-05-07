@@ -2,10 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { BiEdit } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
-import { Button, Pagination, Space, Table, } from 'antd';
-import { Drawer } from 'react-rainbow-components';
-
-
+import { Button, Drawer, Pagination, Space, Table, } from 'antd';
 import { useDispatch, useSelector } from "react-redux";
 import { deleteProduct, getProducts, resetState } from "../../../features/product/productSlice";
 import { Link } from "react-router-dom";
@@ -34,6 +31,11 @@ const columns = [
     fixed: 'left',
     width: 180,
   },
+  // {
+  //   title: "Bộ",
+  //   dataIndex: "collections",
+  //   sorter: (a, b) => a.collections.length - b.collections.length,
+  // },
   {
     title: "Danh Mục",
     dataIndex: "pcategories",
@@ -58,9 +60,10 @@ const SelectModelModal = ({
   const [page, setPage] = useState(1);
   const [product, setProduct] = useState([]);
   useEffect(() => {
+    dispatch(resetState())
     dispatch(getCollections())
     dispatch(getUnits())
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     productService.getProducts(page).then((res) => {
@@ -72,7 +75,6 @@ const SelectModelModal = ({
   const unitsState = useSelector((state) => state.unit.units);
 
   const data1 = [];
-
   for (let i = 0; i < product.length; i++) {
     const collections = collectionsState?.filter((collections) => product?.[i].collection?.include?.(collections.collectionId));
 
@@ -84,21 +86,37 @@ const SelectModelModal = ({
       pcategories: product?.[i]?.category?.categoryName || "",
       price: `${product[i].price}`,
       quantity: `${product[i].quantity}`,
+      // action: (
+      //   <>
+      //     <Link
+      //       className="ms-3 fs-3 text-danger"
+      //       to={`/admin/product/${product[i]?.productId}`}
+      //     >
+      //       <BiEdit />
+      //     </Link>
+      //     <button
+      //       className="ms-3 fs-3 text-danger bg-transparent border-0"
+      //       onClick={() => showModal(product[i].productId)}
+      //     >
+      //       <AiFillDelete />
+      //     </button>
+      //   </>
+      // ),
     });
   }
 
   return (
-    <Drawer isOpen={show} placement="top" onRequestClose={hide} size="large">
+    <Drawer open={show} placement="top" onClose={hide} size="large">
       <h3 className="mb-4 title">Danh Sách Sản Phẩm(Mở rộng để chọn mẫu)</h3>
       <Table
         columns={columns}
-        dataSource={data1 || []}
+        dataSource={data1}
         scroll={{ x: 1350, y: 1500 }}
         pagination={false}
         expandable={{
           expandedRowRender: (record, index) => <ExpandedRowRenderModels
             productId={record.productId}
-            unitsState={unitsState || []}
+            unitsState={unitsState}
             onSelect={setSelectedRowKeys} />
         }} />
       <Pagination defaultCurrent={1} pageSize={20} onChange={(page) => setPage(page)} total={100} style={{ marginTop: 20 }} />
@@ -124,8 +142,8 @@ const ExpandedRowRenderModels = ({ productId, unitsState, onSelect }) => {
     },
     {
       title: 'Giá Bán Lẻ',
-      dataIndex: 'price',
-      key: 'price',
+      dataIndex: 'primaryPrice',
+      key: 'primaryPrice',
       render: (text) => <>{formatCurrencyVND(text)}</>,
     },
     {
@@ -157,11 +175,7 @@ const ExpandedRowRenderModels = ({ productId, unitsState, onSelect }) => {
   ];
   const [data, setData] = useState([]);
   useEffect(() => {
-    if (productId) {
-      getModels(productId).then((res) => {
-        setData(res);
-      });
-    }
+    modelsServices.getModels(productId).then((res) => setData(res));
   }, [productId]);
 
 

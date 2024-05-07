@@ -26,7 +26,6 @@ export const createWarehouse = createAsyncThunk(
       return response;
 
     } catch (error) {
-      console.log(error)
       return thunkAPI.rejectWithValue(error);
     }
   }
