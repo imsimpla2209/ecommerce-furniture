@@ -258,16 +258,16 @@ const SingleProduct = () => {
                         <div className="border-bottom py-3">
                           <div className="d-flex align-items-end gap-10">
                             <div className="d-flex align-items-unset gap-2">
-                              <p className={`text-decoration-underline mb-0 ${productState?.voteStar ? '' : 'text-muted'}`}>
-                                {productState?.voteStar ? productState?.voteStar?.toString() : 'Chưa có đánh giá'}
-                              </p>
+                              
                               {productState?.voteStar ? <ReactStars
                                 count={5}
                                 size={16}
                                 value={productState?.voteStar?.toString()}
                                 edit={false}
                                 activeColor="#ffd700"
-                              /> : null}
+                              /> : <p className={`text-decoration-underline mb-0 ${productState?.voteStar ? '' : 'text-muted'}`}>
+                                {'Chưa có đánh giá'}
+                              </p>}
                             </div>
                             <Divider type="vertical" className="mb-1" />
                             <div className="d-flex align-items-unset gap-2">
@@ -443,39 +443,12 @@ const SingleProduct = () => {
         </div>
       </div>
 
-      <section className="reviews-wrapper home-wrapper-2 py-5">
+      {/* <section className="reviews-wrapper home-wrapper-2 py-5">
         <div className="container-xxl">
           <div className="row">
             <div className="col-12">
               <h4>Đánh giá</h4>
               <div className="review-inner-wrapper">
-                {/* <div className="review-head d-flex justify-content-between align-items-end">
-                  <div>
-                    <h4 className="mb-2">Customer Reviews</h4>
-                    <div className="d-flex align-items-center gap-10">
-                      <ReactStars
-                        count={5}
-                        size={24}
-                        value={3}
-                        edit={false}
-                        activeColor="#ffd700"
-                      />
-                    </div>
-                    <p className="mb-0">Based on 2 Reviews</p>
-                  </div>
-                  <div>
-                    {orderProduct && (
-                      <div>
-                        <a
-                          className="text-dark text-decoration-underline"
-                          href="/"
-                        >
-                          Write a review
-                        </a>
-                      </div>
-                    )}
-                  </div>
-                </div> */}
                 <div id="review" className="review-form py-4">
                   <h4 className="mb-2">Viết Đánh Giá</h4>
                   <div className="">
@@ -537,7 +510,7 @@ const SingleProduct = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       <section className="featured-wrapper py-5 home-wrapper-2 mb-3">
         <div className="container-xxl">
           <div className="row ">

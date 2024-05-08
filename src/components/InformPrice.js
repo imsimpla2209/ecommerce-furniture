@@ -205,8 +205,8 @@ const InformPrice = ({
                       </li>
                       <li className="mb-3 d-flex gap-15 align-items-center">
                         <AiOutlineMail className="fs-5" />
-                        <a href="mailto:mailto:haanphatxnk@gmail.com">
-                          mailto:haanphatxnk@gmail.com
+                        <a href="mailto:mailto:ducanhvng@gmail.com">
+                          mailto:ducanhvng@gmail.com
                         </a>
                       </li>
                       <li className="mb-3 d-flex gap-15 align-items-center">

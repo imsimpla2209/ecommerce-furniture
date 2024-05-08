@@ -100,14 +100,14 @@ const User = () => {
         <>
           <Link
             className="ms-3 fs-3 text-danger"
-            to={`/admin/user/${usersState[i]._id}`}
+            to={`/admin/user/${usersState[i].userId}`}
           >
             <BiEdit />
           </Link>
 
           <button
             className="ms-3 fs-3 text-danger bg-transparent border-0"
-            onClick={() => showModal(usersState[i]._id)}
+            onClick={() => showModal(usersState[i].userId)}
           >
             <AiFillDelete />
           </button>
