@@ -80,7 +80,8 @@ const Orders = () => {
                             class=" text-uppercase btn btn-success btn-xs w-10"
                           >
                             <span class="flex-center">
-                              {item?.orderStatus}
+                              {item?.orderStatus ? "Pending" : "Refund"}
+
                             </span>
                           </button>
                         </td>

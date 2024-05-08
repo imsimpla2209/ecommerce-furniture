@@ -55,8 +55,8 @@ const AddWarehouse = () => {
   }, [getWarehouseId]);
 
   const handleDone = () => {
-    dispatch(resetState());
     navigate("/admin/warehouse-list");
+    dispatch(resetState());
     formik.resetForm();
 
   }
@@ -76,9 +76,11 @@ const AddWarehouse = () => {
       if (getWarehouseId !== undefined) {
         const data = { id: getWarehouseId, warehouseData: values };
         dispatch(updateWarehouse(data, handleDone));
+
       } else {
         console.log(values);
         dispatch(createWarehouse(values, handleDone));
+
       }
     },
   });
@@ -117,7 +119,7 @@ const AddWarehouse = () => {
               >
                 <div className="mx-4">
                   <p><span className="text-muted">
-                    Giá bán buôn:</span> {formatCurrencyVND(selectedModel?.price)}</p>
+                    Giá bán buôn:</span> {formatCurrencyVND(selectedModel?.primaryPrice)}</p>
                   <p><span className="text-muted">
                     Giá bán lẻ:</span> {formatCurrencyVND(selectedModel?.secondaryPrice)}</p>
                   <p><span className="text-muted">Còn lại:</span> {selectedModel?.quantity || 0} cái</p>
